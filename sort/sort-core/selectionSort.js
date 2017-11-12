@@ -20,6 +20,6 @@ function selectionSort (arr, n ) {
 
 }
 
-var n = 100000
-var array = generateRandomArray(n, 0, n)
-testSort('Selection Sort', selectionSort, array, n )
+// var n = 100000
+// var array = generateRandomArray(n, 0, n)
+// testSort('Selection Sort', selectionSort, array, n )
