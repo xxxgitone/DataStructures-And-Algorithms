@@ -1,7 +1,5 @@
 # 常见排序算法
 
-[TOC]
-
 | 排序算法 | 平均时间复杂度 |  最好情况  |  最坏情况  | 空间复杂度 |   排序方式   | 稳定性  |
 | :--: | :-----: | :----: | :----: | :---: | :------: | :--: |
 | 冒泡排序 | O(n^2)  |  O(n)  | O(n^2) | O(1)  | In-place |  稳定  |
@@ -66,5 +64,30 @@ function insertionSort (arr, n) {
 
 
 
+### 冒泡排序
+
+#### 原理
+
+最简单，但是性能最差，比较任何两个相邻的项，如果第一个比第二个大，则交换它们，元素向上移动至正确的顺序
+
+![冒泡排序](https://raw.githubusercontent.com/xxxgitone/DataStructures-And-Algorithms/master/sort/sort-gif/bubbleSort.gif)
+
+```javascript
+function swap (array, index1, index2) {
+  var temp = array[index1]
+  array[index1] = array[index2]
+  array[index2] = temp
+}
+
+function bubbleSort (arr, n) {
+    for (var i = 0; i < n; i++) { // 外循环控制了经过多少轮排序
+        for (var j = 0; j < n - 1 - i; j++) { // 在内循环中减去已经排过的轮数
+            if (arr[j] > arr[j + 1]) {
+                swap(arr, j, j + 1)
+            }
+        }
+    }
+}
+```
 
 
