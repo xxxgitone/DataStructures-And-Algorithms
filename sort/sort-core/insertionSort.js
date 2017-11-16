@@ -15,7 +15,7 @@ function insertionSort (arr, n) {
   }
 }
 
-var n = 10000
-var array = generateRandomArray(n, 0, n)
-testSort('Insertion Sort', insertionSort, array.slice(0), n)
-testSort('Selection Sort', selectionSort, array.slice(0), n )
+// var n = 10000
+// var array = generateRandomArray(n, 0, n)
+// testSort('Insertion Sort', insertionSort, array.slice(0), n)
+// testSort('Selection Sort', selectionSort, array.slice(0), n )

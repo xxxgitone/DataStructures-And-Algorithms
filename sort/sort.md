@@ -91,3 +91,16 @@ function bubbleSort (arr, n) {
 ```
 
 
+
+### 归并排序
+
+#### 原理
+
+归并排序是一种分治算法，其思想是将原始数组切分成较小的数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组
+
+![归并排序](https://raw.githubusercontent.com/xxxgitone/DataStructures-And-Algorithms/master/sort/sort-gif/merge.gif)
+
+
+
+
+
