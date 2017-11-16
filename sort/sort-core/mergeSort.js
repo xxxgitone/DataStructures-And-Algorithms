@@ -1,48 +1,47 @@
-// 将arr[l...mid]和arr[mid+1...r]两部分进行归并
-function _merge(arr, l, mid, r) {
-  var aux
-  for (var i = l; i <= r; i++) {
-    aux[i - l] = arr[i]
+function _mergeSortRec (arr) {
+  var len = arr.length
+  if (len === 1) {
+    return arr
   }
 
-  var i = l, j = mid + 1
-  for (var k = l; k <= r; k++) {
-    if (i > mid) {
-      arr[k] = aux[j - l]
-      j++
-    } else if (j > r) {
-      arr[k] = aux[i - l]
-    }
-
-    if (aux[i - l] < aux[j -l]) {
-      arr[k] = aux[i -l]
-      i++
-    } else {
-      arr[k] = aux[j -l]
-      j++
-    }
-  }
+  var mid = Math.floor(len / 2),
+    left = arr.slice(0, mid),
+    right = arr.slice(mid, len)
+  
+  return _merge(_mergeSortRec(left), _mergeSortRec(right))
 }
 
-// 递归使用归并排序，对arr[l...r]的范围内进行排序
-function _mergeSort(arr, l, r) {
-  if(l >= r) {
-    return
-  }
+function _merge (left, right) {
+  var result = [],
+    il = 0,
+    ir = 0
+  
+    while (il < left.length && ir < right.length) {
+      if (left[il] < right[ir]) {
+        result.push(left[il++])
+      } else {
+        result.push(right[ir++])
+      }
+    }
 
-  var mid = Math.floor((l + r) / 2)
-  _mergeSort(arr, l, mid)
-  _mergeSort(arr, mid + 1, r)
-  _merge(arr, l, mid, r)
+    while (il < left.length) {
+      result.push(left[il++])
+    }
+
+    while (ir < right.length) {
+      result.push(right[ir++])
+    }
+
+    return result
 }
 
 //归并排序
-function mergeSort (arr, n) {
-  _mergeSort(arr, 0, n-1)
+function mergeSort (arr) {
+  return _mergeSortRec(arr)
 }
 
 var n = 50000
 var array = generateRandomArray(n, 0, n)
-// testSort('Insertion Sort', insertionSort, array.slice(0), n)
-testSort('merge Sort', mergeSort, array.slice(0), n )
+testSort('Insertion Sort', insertionSort, array.slice(0))
+testSort('merge Sort', mergeSort, array.slice(0))
 

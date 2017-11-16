@@ -14,8 +14,9 @@ function generateRandomArray (n, rangeL, rangeR) {
 }
 
 // 测试是否排序完成
-function isSorted (array, n) {
-  for (var i = 0; i < n - 1; i++) {
+function isSorted (array) {
+  var len = array.length
+  for (var i = 0; i < len - 1; i++) {
     if (array[i] > array[i + 1]) {
       return false
     }
@@ -24,9 +25,10 @@ function isSorted (array, n) {
 }
 
 // 测试性能
-function testSort (sortName, fun, arr, n) {
+function testSort (sortName, fun, arr) {
   console.time(sortName)
-  fun(arr,n)
+  var newArr = fun(arr)
   console.timeEnd(sortName)
-  console.log(isSorted(arr, n))
+  newArr ? console.log(newArr) : console.log(arr)
+  newArr ? console.log(isSorted(newArr)) : console.log(isSorted(arr))
 }
