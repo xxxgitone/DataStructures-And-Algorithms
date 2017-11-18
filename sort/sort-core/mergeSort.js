@@ -17,13 +17,14 @@ function _merge (left, right) {
     ir = 0
   
     while (il < left.length && ir < right.length) {
-      if (left[il] < right[ir]) {
+      if (left[il] < right[ir]) {// 如果left中的项比右边的小，则push到result中，反之
         result.push(left[il++])
       } else {
         result.push(right[ir++])
       }
     }
 
+    // 最后将left数组或者right数组所有剩余的项添加到归并数组中
     while (il < left.length) {
       result.push(left[il++])
     }
@@ -40,8 +41,7 @@ function mergeSort (arr) {
   return _mergeSortRec(arr)
 }
 
-var n = 50000
-var array = generateRandomArray(n, 0, n)
-testSort('Insertion Sort', insertionSort, array.slice(0))
-testSort('merge Sort', mergeSort, array.slice(0))
+// var n = 50000
+// var array = generateRandomArray(n, 0, n)
+// testSort('merge Sort', mergeSort, array.slice(0))
 

@@ -1,10 +1,11 @@
 # 常见排序算法
 
-| 排序算法 | 平均时间复杂度 |  最好情况  |  最坏情况  | 空间复杂度 |   排序方式   | 稳定性  |
-| :--: | :-----: | :----: | :----: | :---: | :------: | :--: |
-| 冒泡排序 | O(n^2)  |  O(n)  | O(n^2) | O(1)  | In-place |  稳定  |
-| 选择排序 | O(n^2)  | O(n^2) | O(n^2) | O(1)  | In-place | 不稳定  |
-| 插入排序 | O(n^2)  |  O(n)  | O(n^2) | O(1)  | In-place |  稳定  |
+| 排序算法 |  平均时间复杂度   |    最好情况    |    最坏情况    | 空间复杂度 |   排序方式    | 稳定性  |
+| :--: | :--------: | :--------: | :--------: | :---: | :-------: | :--: |
+| 冒泡排序 |   O(n^2)   |    O(n)    |   O(n^2)   | O(1)  | In-place  |  稳定  |
+| 选择排序 |   O(n^2)   |   O(n^2)   |   O(n^2)   | O(1)  | In-place  | 不稳定  |
+| 插入排序 |   O(n^2)   |    O(n)    |   O(n^2)   | O(1)  | In-place  |  稳定  |
+| 归并排序 | O(n log n) | O(n log n) | O(n log n) | O(n)  | Out-place |  稳定  |
 
 ### 选择排序
 
@@ -21,11 +22,13 @@ function swap (array, index1, index2) {
   array[index2] = temp
 }
 
-function selectionSort (arr, n ) {
-  for (var i = 0; i < n; i++) {
+function selectionSort (arr) {
+  var len = arr.length
+  
+  for (var i = 0; i < len; i++) {
     // 寻找[i, n)区间里最小值,先假设这个区间的第一个数就是最小的(初始化)
     var minIndex = i
-    for (var j = i + 1; j < n; j++) {
+    for (var j = i + 1; j < len; j++) {
       if (arr[j] < arr[minIndex]) { // 寻找最小的数
         minIndex = j
       }
@@ -50,8 +53,10 @@ function selectionSort (arr, n ) {
 
 
 ```javascript
-function insertionSort (arr, n) {
-  for (var i = 1; i < n; i++) {
+function insertionSort (arr) {
+  var len = arr.length
+  
+  for (var i = 1; i < len; i++) {
     // 寻找元素arr[i]合适的插入位置
     var j, temp = arr[i] // j保存元素temp应该插入的位置
     for (j = i; j > 0 && arr[j - 1] > temp; j--) {
@@ -79,14 +84,16 @@ function swap (array, index1, index2) {
   array[index2] = temp
 }
 
-function bubbleSort (arr, n) {
-    for (var i = 0; i < n; i++) { // 外循环控制了经过多少轮排序
-        for (var j = 0; j < n - 1 - i; j++) { // 在内循环中减去已经排过的轮数
-            if (arr[j] > arr[j + 1]) {
-                swap(arr, j, j + 1)
-            }
-        }
+function bubbleSort (arr) {
+  var len = arr.length
+  
+  for (var i = 0; i < len; i++) { // 外循环控制了经过多少轮排序
+    for (var j = 0; j < len - 1 - i; j++) { // 在内循环中减去已经排过的轮数
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1)
+      }
     }
+  }
 }
 ```
 
@@ -99,6 +106,51 @@ function bubbleSort (arr, n) {
 归并排序是一种分治算法，其思想是将原始数组切分成较小的数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组
 
 ![归并排序](https://raw.githubusercontent.com/xxxgitone/DataStructures-And-Algorithms/master/sort/sort-gif/merge.gif)
+
+```javascript
+function _mergeSortRec (arr) {
+  var len = arr.length
+  if (len === 1) {
+    return arr
+  }
+
+  var mid = Math.floor(len / 2),
+    left = arr.slice(0, mid),
+    right = arr.slice(mid, len)
+  
+  return _merge(_mergeSortRec(left), _mergeSortRec(right))
+}
+
+function _merge (left, right) {
+  var result = [],
+    il = 0,
+    ir = 0
+  
+    while (il < left.length && ir < right.length) {
+      if (left[il] < right[ir]) {// 如果left中的项比右边的小，则push到result中，反之
+        result.push(left[il++])
+      } else {
+        result.push(right[ir++])
+      }
+    }
+
+    // 最后将left数组或者right数组所有剩余的项添加到归并数组中
+    while (il < left.length) {
+      result.push(left[il++])
+    }
+
+    while (ir < right.length) {
+      result.push(right[ir++])
+    }
+
+    return result
+}
+
+//归并排序
+function mergeSort (arr) {
+  return _mergeSortRec(arr)
+}
+```
 
 
 
