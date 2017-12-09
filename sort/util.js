@@ -25,9 +25,9 @@ function isSorted (array) {
 }
 
 // 测试性能
-function testSort (sortName, fun, arr) {
+function testSort (sortName, fun, arr, left, right) {
   console.time(sortName)
-  var newArr = fun(arr)
+  var newArr = fun(arr, left, right)
   console.timeEnd(sortName)
   newArr ? console.log(newArr) : console.log(arr)
   newArr ? console.log(isSorted(newArr)) : console.log(isSorted(arr))

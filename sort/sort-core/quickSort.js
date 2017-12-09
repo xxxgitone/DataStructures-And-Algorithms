@@ -15,19 +15,21 @@ function _quick (array, left, right) {
     if (array.length > 1) {
         index = _partition(array, left, right)
 
-    if (left < index -1) {
-        _quick(array, left, index -1)
-    } 
+        if (left < index - 1) {
+            _quick(array, left, index -1)
+        }
 
-    if (index < right) {
-        _quick(array, index, right)
+        if (index < right) {
+            _quick(array, index, right)
+        }
     }
-    
-    return array
 }
 
+// 选择主元的方式有三种：一种是从左开始，一种是随机，还有一种是取中间
+// 对于几乎排序的数组，选择从最左项性能最差，O(n^2)
+// 下面演示取中间
 function _partition (array, left, right) {
-    var pivot = array[Math.floor((right + left) / 2)],
+    var pivot = array[Math.floor((left + right) / 2)]
         l = left,
         r = right
     
@@ -39,23 +41,20 @@ function _partition (array, left, right) {
             r--
         }
         if (l <= r) {
-            _swap(array, l, r)
+            swap(array, l, r)
             l++
             r--
         }
     }
+
     return l
 }
 
-function _swap (array, index1, index2) {
-    var aux = array[index1]
-    array[index1] = array[index2]
-    array[index2] = aux
-}
-
 function quickSort (array, left, right) {
-    return _quick(array, 0, array.length -1)
+    _quick(array, 0, array.length -1)
 }
 
-var arr = [5,6,8,2,4,3,5,1,2,6]
-console.log(quickSort(arr, 0, arr.length))
+var n = 50000
+var array = generateRandomArray(n, 0, n)
+testSort('merge Sort', mergeSort, array.slice(0))
+testSort('quick Sort', quickSort, array.slice(0), 0, n-1)

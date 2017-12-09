@@ -1,11 +1,12 @@
 # 常见排序算法
 
-| 排序算法 |  平均时间复杂度   |    最好情况    |    最坏情况    | 空间复杂度 |   排序方式    | 稳定性  |
-| :--: | :--------: | :--------: | :--------: | :---: | :-------: | :--: |
-| 冒泡排序 |   O(n^2)   |    O(n)    |   O(n^2)   | O(1)  | In-place  |  稳定  |
-| 选择排序 |   O(n^2)   |   O(n^2)   |   O(n^2)   | O(1)  | In-place  | 不稳定  |
-| 插入排序 |   O(n^2)   |    O(n)    |   O(n^2)   | O(1)  | In-place  |  稳定  |
-| 归并排序 | O(n log n) | O(n log n) | O(n log n) | O(n)  | Out-place |  稳定  |
+| 排序算法 |  平均时间复杂度   |    最好情况    |    最坏情况    |  空间复杂度   |   排序方式    | 稳定性  |
+| :--: | :--------: | :--------: | :--------: | :------: | :-------: | :--: |
+| 冒泡排序 |   O(n^2)   |    O(n)    |   O(n^2)   |   O(1)   | In-place  |  稳定  |
+| 选择排序 |   O(n^2)   |   O(n^2)   |   O(n^2)   |   O(1)   | In-place  | 不稳定  |
+| 插入排序 |   O(n^2)   |    O(n)    |   O(n^2)   |   O(1)   | In-place  |  稳定  |
+| 归并排序 | O(n log n) | O(n log n) | O(n log n) |   O(n)   | Out-place |  稳定  |
+| 快速排序 | O(n log n) | O(n log n) |   O(n^2)   | O(log n) | In-place  | 不稳定  |
 
 ### 选择排序
 
@@ -151,6 +152,70 @@ function mergeSort (arr) {
   return _mergeSortRec(arr)
 }
 ```
+
+### 快速排序
+
+#### 原理
+
+1. 首先，从数组中选择中间一项作为主元
+
+2. 创建两个指针，左边一个指向数组第一个项，右边一个指向数组最后一个项。移动左指针直到我们找到一个比主元大的元素，接着，移动右指针找到一个比主元小的元素，然后交换它们，重复这个过程，直到左指针超过了右指针。这个过程将使得比主元小的值都排在主元之前，而比主元大的都在主元之后。这一步交划分。
+
+3. 接着，算法对划分后的小数组重复之前的两个步骤，直至数组已完全排序。
+
+   ![快速排序](https://raw.githubusercontent.com/xxxgitone/DataStructures-And-Algorithms/master/sort/sort-gif/quickSort.gif)
+
+```javascript
+function _quick (array, left, right) {
+    var index
+
+    if (array.length > 1) {
+        index = _partition(array, left, right)
+
+    if (left < index -1) {
+        _quick(array, left, index -1)
+    } 
+
+    if (index < right) {
+        _quick(array, index, right)
+    }
+    
+    return array
+}
+
+function _partition (array, left, right) {
+    var pivot = array[Math.floor((right + left) / 2)],
+        l = left,
+        r = right
+    
+    while (l <= r) {
+        while (array[l] < pivot) {
+            l++
+        }
+        while (array[r] > pivot) {
+            r--
+        }
+        if (l <= r) {
+            _swap(array, l, r)
+            l++
+            r--
+        }
+    }
+    return l
+}
+
+function _swap (array, index1, index2) {
+    var aux = array[index1]
+    array[index1] = array[index2]
+    array[index2] = aux
+}
+
+function quickSort (array, left, right) {
+    return _quick(array, 0, array.length -1)
+}
+```
+
+
 
 
 
