@@ -1,5 +1,6 @@
 // 数组的缺点: 在大多数语言中大小固定,移除和添加项成本高(在js不用我们去操作,但是背后实现还是这样)
 // 链表在添加和移除元素的时候不需要移动其他元素,但是需要借助指针
+// 链表在查找元素的时候,都要从头指针开始遍历,实现中指保留头指针的引用
 
 /**
  * @constructor 
@@ -114,18 +115,89 @@ function LinkedList () {
   /**
    * 返回元素在链表中的位置,没有返回-1
    * @param {元素值} element 
+   * @return {Number}
    */
-  this.indexOf = function (element) {}
+  this.indexOf = function (element) {
+    let current = head,
+      index = 0
+
+    while (current) {
+      if (element === current.element) {
+        return index
+      }
+      index++
+      current = current.next
+    }
+
+    return -1
+  }
+
+  /**
+   * 移除某个元素
+   * @param {元素值} element 
+   */
+  this.remove = function (element) {
+    let index = this.indexOf(element)
+    return this.removeAt(index)
+  }
+
+
   /**
    * 判断是否为空
    * @return {Boolean}
    */
-  this.isEmpty = function () {}
+  this.isEmpty = function () {
+    return length === 0
+  }
+
   /**
    * 包含元素个数
    */
-  this.size = function () {}
-  this.getHead = function () {}
-  this.toString = function () {}
-  this.print = function () {}
+  this.size = function () {
+    return length
+  }
+
+  /**
+   * 获取头节点
+   */
+  this.getHead = function () {
+    return head
+  }
+
+  /**
+   * 转换成字符串
+   */
+  this.toString = function () {
+    let current = head,
+      string = ''
+
+    while (current) {
+      string += current.element + ' '
+      current = current.next
+    }
+    return string
+  }
+
+  this.print = function () {
+    let current = head,
+      string = ''
+    
+    while (current) {
+      string += current.element + (current.next ? '->' : '')
+      current = current.next
+    }
+
+    console.log(string)
+  }
 }
+
+const list = new LinkedList()
+list.append(5)
+list.append(3)
+list.append(10)
+list.print()
+console.log(list.indexOf(3))
+list.insert(2, 25)
+list.print()
+list.remove(10)
+list.print()
