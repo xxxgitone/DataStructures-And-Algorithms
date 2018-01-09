@@ -49,12 +49,70 @@ function BinarySearchTree () {
     }
   }
   
-  this.
+  /**
+   * 中序遍历(左中右)
+   * 中序遍历是一种以上行顺序访问BST所有节点的遍历方式,也就是以从小到大的顺序访问所有节点
+   * @param {节点} node 
+   * @param {Function} callback 
+   */
+  const inOrderTraverseNode = function (node, callback) {
+    if (node !== null) {
+      inOrderTraverseNode(node.left, callback)
+      callback(node.key)
+      inOrderTraverseNode(node.right, callback)
+    }
+  }
 
+  // 中序遍历
+  this.inOrderTraverse = function (callback) {
+    inOrderTraverseNode(root, callback)
+  }
+
+  /**
+   * 先序遍历(中左右)
+   * 先序遍历是以优先于后代节点的顺序访问每个节点,先访问节点本身
+   * 然后访问左侧子节点,再访问右侧做节点
+   * 应用:打印一个结构化的文档
+   * @param {节点} node
+   * @param {Function} callback 
+   */
+  function preOrderTraverseNode (node, callback) {
+    if (node !== null) {
+      callback(node.key)
+      preOrderTraverseNode(node.left, callback)
+      preOrderTraverseNode(node.right, callback)
+    }
+  }
+
+  // 先序遍历
+  this.preOrderTraverse = function (callback) {
+    preOrderTraverseNode(root, callback)
+  }
+
+  /**
+   * 后序遍历(左右中)
+   * 后序遍历是先访问节点的后代节点,在访问节点本身
+   * 应用:计算一个目录和它子目录中所有文件所占空间的大小
+   * @param {节点} node 
+   * @param {Function} callback 
+   */
+  const postOrderTraverseNode = function (node, callback) {
+    if (node !== null) {
+      postOrderTraverseNode(node.left, callback)
+      postOrderTraverseNode(node.right, callback)
+      callback(node.key)
+    }
+  }
+
+  // 后序遍历
+  this.postOrderTraverse = function (callback) {
+    postOrderTraverseNode(root, callback)
+  }
 }
 
 let tree = new BinarySearchTree()
 tree.insert(11)
+tree.insert(7)
 tree.insert(15)
 tree.insert(5)
 tree.insert(3)
@@ -67,3 +125,12 @@ tree.insert(14)
 tree.insert(20)
 tree.insert(18)
 tree.insert(25)
+tree.insert(6)
+
+function printNode (value) {
+  console.log(value)
+}
+
+tree.inOrderTraverse(printNode)
+tree.preOrderTraverse(printNode)
+tree.postOrderTraverse(printNode)
