@@ -108,6 +108,26 @@ function BinarySearchTree () {
   this.postOrderTraverse = function (callback) {
     postOrderTraverseNode(root, callback)
   }
+
+  /**
+   * 根据二叉搜索树的特点,树的最小值会在最左侧的最下层一个数
+   * @param {节点} node 
+   */
+  const minNode = function (node) {
+    if (node) {
+      while (node && node.left !== null) {
+        node = node.left
+      }
+
+      return node.key
+    }
+    return null
+  }
+
+  // 寻找树的最小值
+  this.min = function () {
+    return minNode(root)
+  }
 }
 
 let tree = new BinarySearchTree()
@@ -134,3 +154,4 @@ function printNode (value) {
 tree.inOrderTraverse(printNode)
 tree.preOrderTraverse(printNode)
 tree.postOrderTraverse(printNode)
+console.log('min', tree.min())
