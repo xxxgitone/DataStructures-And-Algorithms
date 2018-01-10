@@ -128,6 +128,29 @@ function BinarySearchTree () {
   this.min = function () {
     return minNode(root)
   }
+
+  /**
+   * 根据二叉搜索树的特点,树的最大值会在最右侧的最下层一个数
+   * @param {节点} node 
+   */
+  const maxNode = function (node) {
+    if (node) {
+      while (node && node.right !== null) {
+        node = node.right
+      }
+      return node.key
+    }
+    return null
+  }
+
+  // 寻找树的最大值
+  this.max = function () {
+    return maxNode(root)
+  }
+
+  this.search = function (key) {
+    
+  }
 }
 
 let tree = new BinarySearchTree()
@@ -155,3 +178,4 @@ tree.inOrderTraverse(printNode)
 tree.preOrderTraverse(printNode)
 tree.postOrderTraverse(printNode)
 console.log('min', tree.min())
+console.log('max', tree.max())
