@@ -148,8 +148,29 @@ function BinarySearchTree () {
     return maxNode(root)
   }
 
+  /**
+   * 查找特定值,返回一个Boolean
+   * @param {节点} node
+   * @param {节点值} key 
+   * @returns {Boolean}
+   */
+  const searchNode = function (node, key) {
+    if (node === null) {
+      return false
+    }
+
+    if (key < node.key) {
+      return searchNode(node.left, key)
+    } else if (key > node.key) {
+      return searchNode(node.right, key)
+    } else {
+      return true
+    }
+  }
+
+  // 查找指定值
   this.search = function (key) {
-    
+    return searchNode(root, key)
   }
 }
 
@@ -179,3 +200,4 @@ tree.preOrderTraverse(printNode)
 tree.postOrderTraverse(printNode)
 console.log('min', tree.min())
 console.log('max', tree.max())
+console.log('has', tree.search(20))
