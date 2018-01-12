@@ -172,6 +172,66 @@ function BinarySearchTree () {
   this.search = function (key) {
     return searchNode(root, key)
   }
+
+  // 找到最小的节点
+  const findMinNode = function (node) {
+    while (node && node.left !== null) {
+      node = node.left
+    }
+    return node
+  }
+
+  /**
+   * 移除某个特定值
+   * @param {父节点} node 
+   * @param {节点值} key 
+   * @return 被删除的节点
+   */
+  const removeNode = function (node, key) {
+    if (node === null) return null
+
+    if (key < node.key) { // 如果比当前节点小
+      node.left = removeNode(node.left, key)
+      return node
+    } else if (key > node.key) { // 如果比当前节点大
+      node.right = removeNode(node.right, key)
+      return node
+    } else { // 等于node.key, 找到了需要删除的节点 
+
+      // 第一种情况: 一个叶子节点,没有左侧和右侧子节点
+      if (node.left === null && node.right === null) {
+        node = null
+        // 返回的目的:删除的节点有父节点,需要返回null将对应的父节点指针赋值为null
+        return node
+      }
+
+      // 第二种情况: 一个只有一个子节点的节点
+      if (node.left === null) {
+        node = node.right
+        return node
+      } else if (node.left === null) {
+        node = node.left
+        return node
+      }
+
+      // 第三种情况: 有两个子节点的节点
+      // 先找到该节点右侧最小的节点
+      const aux = findMinNode(node.right)
+      // 用找到的值替换要删除的节点
+      node.key = aux.key
+      // 然后移除右侧子树中最小的节点
+      node.right = removeNode(node.right, aux.key)
+      // 最后,向它的父节点返回更新后节点的引用
+      return node
+    }
+  }
+
+  // 移除某个节点
+  this.remove = function (key) {
+    // TODO:注释
+    root = removeNode(root, key)
+  }
+
 }
 
 let tree = new BinarySearchTree()
