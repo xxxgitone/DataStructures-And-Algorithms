@@ -30,13 +30,13 @@ var longestPalindrome = function(s) {
       if (s[left] !== s[right]) {
         break
       }
-      left -= 1
-      right += 1
+      left--
+      right++
     }
     return s.slice(left + 1, right)
   };
 
-  for (var i = 0; i < length; i += 1) {
+  for (var i = 0; i < length; i++) {
     if (longest.length > (length - i) * 2) break
     // odd
     var palindrome = getPalindrome(i, i)
@@ -49,3 +49,5 @@ var longestPalindrome = function(s) {
 
   return longest
 }
+
+console.log(longestPalindrome('cbbd'))
