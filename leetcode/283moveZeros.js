@@ -11,7 +11,9 @@
  */
 
  // 解法1
-var moveZeroes = function(nums) {
+ // 时间复杂度: O(n)
+ // 空间复杂度: O(n),利用了额外的存储空间
+var moveZeroes1 = function(nums) {
     var nonZeroElements = []
 
     // 将非0值保存到nonZeroElements
@@ -34,4 +36,49 @@ var moveZeroes = function(nums) {
     // console.log(nums)
 };
 
-moveZeroes([0,2,3,0,4,6,0,6])
+/**
+ * 优化
+ * 
+ */
+  // 时间复杂度: O(n)
+ // 空间复杂度: O(1)
+var moveZeroes2 = function (nums) {
+  var k = 0 // nums中,[0...k)的元素均为非0元素
+
+  // 遍历到第i个元素后,保证[0...i]中所有非0元素都按照顺序排列在[0...k)中
+  for (var i = 0; i < nums.length; i++) {
+    if (nums[i]) { // 如果nums[i]不为0
+      nums[k++] = nums[i]
+    }
+  }
+  for (var i = k; i < nums.length; i++) {
+    nums[i] = 0
+  }
+}
+
+// 优化3
+var moveZeroes3 = function (nums) {
+  var k = 0 // nums中,[0...k)的元素均为非0元素
+
+  // 遍历到第i个元素后,保证[0...i]中所有非0元素都按照顺序排列在[0...k)中
+  // 同时, [k...i]中为0
+  for (var i = 0; i < nums.length; i++) {
+    if (nums[i]) { // 如果nums[i]不为0
+      // 如果全为0的时候,都会跟自身交换,增加判断
+      // 或者起始几个值都不为0
+      if (i !== k) {
+        var aux = nums[k]
+        nums[k] = nums[i]
+        nums[i] = aux
+        k++
+      } else { // i===k
+        k++
+      }
+    }
+  }
+  console.log(nums)
+}
+
+moveZeroes1([0,2,3,0,4,6,0,6])
+moveZeroes2([0,2,3,0,4,6,0,6])
+moveZeroes3([0,2,3,0,4,6,0,6])
