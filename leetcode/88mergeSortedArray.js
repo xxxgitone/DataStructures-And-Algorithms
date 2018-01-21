@@ -11,32 +11,21 @@ You may assume that nums1 has enough space (size that is greater or equal to m +
  */
 
 var merge = function (nums1, m, nums2, n) {
-  var arr = []
-  var index = 0
-  for (var i = 0; i < m; i++) {
-    arr[index++] = nums1[i]
-  }
-  for (var i = 0; i < n; i++) {
-    arr[index++] = nums2[i]
-  }
-
-  // 取右边数组的第一个值为中间值
-  var l = 0, mid = m - 1, r = m
-  for (var k = 0; k < arr.length; k++) {
-    if (l > mid) {
-      nums1[k] = arr[r]
-      r++
-    } else if (r > arr.length) {
-      nums1[k] = arr[l]
-      l++
-    } else if (arr[l] < arr[r]) {
-      nums1[k] = arr[l]
-      l++
+  var i = m - 1, 
+    j = n - 1, 
+    k = m + n -1
+  
+  while (i >= 0 && j >= 0) {
+    if (nums1[i] > nums2[j]) {
+      nums1[k--] = nums1[i--]
     } else {
-      nums1[k] = arr[r]
-      r++
+      nums1[k--] = nums2[j--]
     }
   }
+  while (j >= 0) {
+    nums1[k--] = nums2[j--]
+  }
+  console.log(nums1)
 }
 
-merge([1,3,5,6], 4, [1,4,7,8,10], 5)
+merge([2, 0], 1, [1], 1)
