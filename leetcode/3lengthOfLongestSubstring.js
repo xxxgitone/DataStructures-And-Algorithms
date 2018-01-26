@@ -13,24 +13,23 @@ Desc:
 
 var lengthOfLongestSubstring = function(s) {
   // 记录字符的频率
-  var freq = []
+  var freq = {}
   var l = 0, r = -1 //滑动窗口为s[l...r]
   var res = 0 // 最长长度
 
   while (l < s.length) {
-    console.log(freq[s[r+1]])
-    if (r + 1 < s.length && freq[s[r+1]] === 0) { // 说明还没有出现重复值
+    if (r + 1 < s.length && !freq[s[r+1]]) { // 说明还没有出现重复值
       r++
-      freq[s[r]]++
+      freq[s[r]] = 1
     } else {
-      freq[s[l]]--
+      freq[s[l]] = 0
       l++
     }
     res = Math.max(res, r-l+1)
   }
   return res
 }
-console.log(lengthOfLongestSubstring('pwwkew'))
+console.log(lengthOfLongestSubstring('abcabcbb'))
 
 // /**
 // * @param {string} s
