@@ -41,12 +41,12 @@ var findAnagrams = function (s, p) {
     !hash[c] ? hash[c] = 1 : hash[c]++
   }
 
-  var l = 0, r = 0, count = p.length
-  while (r < s.length) {
-    if (hash[s.charAt(r)] >= 1) {
+  var l = 0, r = -1, count = p.length
+  while (r + 1 < s.length) {
+    if (hash[s.charAt(r+1)] >= 1) {
       count--
     }
-    hash[s.charAt(r)]--
+    hash[s.charAt(r+1)]--
     r++
 
     if (count === 0) {
@@ -55,7 +55,7 @@ var findAnagrams = function (s, p) {
 
     // 当找到满足条件的子字符串后
     // 然后缩小窗口
-    if (r - l === p.length) {
+    if (r - l + 1 === p.length) {
       if (hash[s.charAt(l)] >= 0) {
         count++
       }
