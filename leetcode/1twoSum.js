@@ -17,16 +17,20 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-  var data = {}
+  var map = {}
   for (var i = 0, len = nums.length; i < len; i++) {
     var num = nums[i]
-    if (data[target - num] !== undefined) {
-      return [data[target - num], i]
+    if (map[target - num] !== undefined) {
+      return [map[target - num], i]
     } else {
-      data[num] = i
+      map[num] = i
     }
   }
   return []
 }
 
+
+
 console.log(twoSum([1,5,6,8], 14))
+
+
