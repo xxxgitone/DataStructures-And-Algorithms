@@ -22,7 +22,9 @@ n最多500,说明n^2的算法可以解决
 
 
 解法:
-  取一个点i,然后用查找表记录每个点到i的距离,并记录个数,如果只有一个点,说明不符合,两个点说明有两种情况,三个则有六(3*2)种情况
+  取一个点i,然后用查找表记录每个点到i的距离,并记录个数,如果相同距离只有一个,说明不符合,两个说明有两种情况,三个则有六(3*2)种情况
+
+
 */
 
 var numberOfBoomerangs = function (points) {
@@ -33,8 +35,10 @@ var numberOfBoomerangs = function (points) {
   }
 
   var res = 0
-  var record = {}
   for (var i = 0; i < points.length; i++) {
+    // 记录其余点到这个点的距离,值为键,次数为值
+    var record = {}
+
     for (var j = 0; j < points.length; j++) {
       if (j !== i) {
         if (record[dis(points[i], points[j])]) {
@@ -44,12 +48,11 @@ var numberOfBoomerangs = function (points) {
         }
       }
     }
-  }
-
-  for (var k in record) {
-    // if (record[k] >= 2) { // 这一句可以去除, 1-1=0
-      res += record[k] * (record[k] - 1)
-    // }
+    for (var k in record) {
+      // if (record[k] >= 2) { // 这一句可以去除, 1-1=0
+        res += record[k] * (record[k] - 1)
+      // }
+    }
   }
 
   return res
