@@ -31,7 +31,7 @@ Note: Recursive solution is trivial, could you do it iteratively?
   * @param {String} s 命令 go print
     @param {TreeNode} node 节点
   */
-var command = function (s, node) {
+var createCommand = function (s, node) {
   return {
     s: s,
     node: node
@@ -46,7 +46,7 @@ var preorderTraversal = function(root) {
   if (!root) return res
 
   var stack = []
-  stack.push(command('go', root))
+  stack.push(createCommand('go', root))
 
   while (stack.length) {
 
@@ -58,12 +58,12 @@ var preorderTraversal = function(root) {
       // 原本中左右
       // 栈为先进后出,所以先推入右节点
       if (command.node.right) {
-        stack.push(command('go', command.node.right))
+        stack.push(createCommand('go', command.node.right))
       } 
-      if (command.node.right) {
-        stack.push(command('go',command.node.left))
+      if (command.node.left) {
+        stack.push(createCommand('go',command.node.left))
       }
-      stack.push(command.push('print', command.node))
+      stack.push(createCommand('print', command.node))
     }
   }
 
