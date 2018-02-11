@@ -15,7 +15,7 @@ return its level order traversal as:
   [15,7]
 ]
 
-对一个二叉树进行层序遍历
+对一个二叉树进行层序遍历(树的广度优先遍历)
  */
 
  /**
