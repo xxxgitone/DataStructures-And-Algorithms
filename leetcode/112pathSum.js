@@ -34,7 +34,7 @@ var hasPathSum = function(root, sum) {
 
   // 要是叶子节点
   if (root.left === null && root.right === null) {
-    return sum === 0
+    return sum - root.val === 0
   }
 
   if (hasPathSum(root.left, sum - root.val)) {
