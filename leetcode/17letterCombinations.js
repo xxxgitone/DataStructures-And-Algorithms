@@ -44,12 +44,12 @@ var letterCombinations = function(digits) {
   // s中保存了此时从digits[0...index-1]翻译得到的一个字母字符串
   // 寻找和digits[index]匹配的字母,获得digits[0...index]翻译得到的解
   var findCombination = function (digits, index, s) {
-    
     if (index === digits.length) {
       res.push(s)
+      return
     }
     var c = digits[index]
-    var letters = letterMap[Number(c) - 0]
+    var letters = letterMap[c - 0] // c - 0 转换成数字
     for (var i = 0; i < letters.length; i++) {
       findCombination(digits, index + 1, s + letters[i])
     }
