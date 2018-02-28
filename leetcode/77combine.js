@@ -27,45 +27,29 @@ If n = 4 and k = 2, a solution is:
  */
 var combine = function(n, k) {
   // 求解C(n, k),当前已经找到的组合存储在c中,需要从start开始搜索新的元素
-  // var generateCombinations = function (n, k, start, c) {
-  //   console.log('c=', c)
-  //   console.log('res=', res)
-  //   if (c.length === k) {
-  //     res.push(c)
-  //     console.log('push res', res)
-  //     return
-  //   }
+  var generateCombinations = function (n, k, start, c) {
+    if (c.length === k) {
+      res.push(c.slice())
+      return
+    }
 
-  //   for (var i = start; i <= n; i++) {
-  //     c.push(i)
-  //     generateCombinations(n, k, i + 1, c)
-  //     c.pop()
-  //   }
-  //   return
-  // }
+    for (var i = start; i <= n; i++) {
+      c.push(i)
+      generateCombinations(n, k, i + 1, c)
+      c.pop()
+    }
+    return
+  }
   
-  // var res = []
-  // if (n <= 0 || k <= 0 || k > n) return res
-  // var c = []
-  // generateCombinations(n, k, 1, c) 
-  // return res
+  var res = []
+  if (n <= 0 || k <= 0 || k > n) return res
+  var c = []
+  generateCombinations(n, k, 1, c) 
+  return res
   var combs = []
   var comb = []
   generateCombinations(combs, comb, n, k, 1)
   return combs
-}
-
-var generateCombinations = function (combs, comb, n, k, start) {
-  if (k === 0) {
-    combs.push(comb)
-    return
-  }
-
-  for (var i = start; i <= n; i++) {
-    comb.push(i)
-    generateCombinations(combs, comb, n, k-1, i+1)
-    comb.pop()
-  }
 }
 
 console.log(combine(4,2))

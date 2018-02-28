@@ -26,8 +26,7 @@ var permute = function(nums) {
   // 向这个排列的末尾添加第index+1个元素,获得一个有index+1个元素的排列
   var generatePermutation = function (nums, index, p) {
     if (index === nums.length) {
-      console.log(res)
-      res.push(p)
+      res.push(p.slice())
       return
     }
 
