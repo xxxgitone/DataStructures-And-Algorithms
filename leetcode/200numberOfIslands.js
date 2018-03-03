@@ -28,5 +28,60 @@ Amswer: 3
  * @return {number}
  */
 var numIslands = function(grid) {
-    
+  var d = [
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0]
+  ]
+  var m = grid.length
+  var n = grid[0].length
+
+  var visited = [] // 用于判断是否访问过
+  for (var i = 0; i < m; i++) {
+    for (var j = 0; j < n; j++) {
+      if (visited[i] === undefined) {
+        visited[i] = []
+        visited[i][j] = false
+      } else {
+        visited[i][j] = false
+      }
+    }
+  }
+
+  var inArea = function (x, y) {
+    return x >= 0 && x < m && y >= 0 && y < n
+  }
+
+  var dfs = function (grid, x, y) {
+    visited[x][y] = true
+    for (var i = 0; i < 4; i++) {
+      var newX = x + d[i][0]
+      var newY = y + d[i][1]
+      if (inArea(newX, newY) && !visited[newX][newY] && grid[newX][newY] === 1) {
+        dfs(grid, newX, newY)
+      }
+    }
+    return
+  }
+
+  var res = 0
+  for (var i  = 0; i < m; i++) {
+    for (var j = 0; j < n; j++) {
+      if (grid[i][j] === 1 && !visited[i][j]) {
+        res++
+        dfs(grid, i, j)
+      }
+    }
+  }
+  return res
 }
+
+var grid = [
+  [1,1,0,0,0],
+  [1,1,0,0,0],
+  [0,0,1,0,0],
+  [0,0,0,1,1]
+]
+
+console.log(numIslands(grid))
